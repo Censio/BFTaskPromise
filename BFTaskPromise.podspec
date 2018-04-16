@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "BFTaskPromise"
-  s.version      = "2.1.0"
+  s.version      = "2.1.1"
   s.summary      = "An Objective-C category for BFTask class in Bolts-iOS."
 
   s.description  = <<-DESC
@@ -18,10 +18,10 @@ Pod::Spec.new do |s|
   s.author       = { "Hironori Ichimiya" => "hiron@hironytic.com" }
 
   s.platform     = :ios, "5.0"
-  s.source       = { :git => "https://github.com/hironytic/BFTaskPromise.git", :tag => "v#{s.version}" }
+  s.source       = { :git => "git@github.com:Censio/BFTaskPromise.git", :tag => "v#{s.version}" }
   s.source_files  = "Classes/*.{h,m}"
   
   s.requires_arc = true
 
-  s.dependency 'Bolts/Tasks', '~> 1.2'
+  s.dependency 'Bolts/Tasks', '~> 1.9'
 end
