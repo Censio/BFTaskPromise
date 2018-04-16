@@ -31,30 +31,25 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
 
 @implementation BFTask (PromiseLike)
 
++ (NSError *)errorForException:(NSException *)exception
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:exception forKey:BFPUnderlyingExceptionKey];
+    
+    NSString *reason = exception.reason;
+    if (reason != nil) {
+        [dict setObject:reason forKey:NSLocalizedDescriptionKey];
+    }
+    
+    return [NSError errorWithDomain:BFPTaskErrorDomain code:BFPTaskErrorException userInfo:dict];
+}
+
 - (BFTask *)thenWithExecutor:(BFExecutor *)executor withBlock:(BFPSuccessResultBlock)block {
     return [self continueWithExecutor:executor withBlock: ^id (BFTask *task) {
-        if ([task error] != nil || [task exception] != nil || [task isCancelled]) {
+        if ([task error] != nil || [task isCancelled]) {
             return task;
         } else {
             return block(task.result);
-        }
-    }];
-}
-
-- (BFTask *)catchWithExecutor:(BFExecutor *)executor withBlock:(BFPErrorResultBlock)block {
-    return [self continueWithExecutor:executor withBlock: ^id (BFTask *task) {
-        if (task.error) {
-            return block(task.error);
-        } else if (task.exception) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setObject:task.exception forKey:BFPUnderlyingExceptionKey];
-            NSString *reason = task.exception.reason;
-            if (reason != nil) {
-                [dict setObject:reason forKey:NSLocalizedDescriptionKey];
-            }
-            return block([NSError errorWithDomain:BFPTaskErrorDomain code:BFPTaskErrorException userInfo:dict]);
-        } else {
-            return task;
         }
     }];
 }
@@ -84,16 +79,6 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
     };
 }
 
-- (BFTask *(^)(BFPErrorResultBlock))catch {
-    return ^BFTask *(BFPErrorResultBlock block) {
-        return [self catchWithExecutor:[BFExecutor defaultExecutor] withBlock:block];
-    };
-}
-
-- (BFTask *(^)(BFPErrorResultBlock))catchWith {
-    return [self catch];
-}
-
 - (BFTask *(^)(BFPFinallyBlock))finally {
     return ^BFTask *(BFPFinallyBlock block) {
         return [self finallyWithExecutor:[BFExecutor defaultExecutor] withBlock:block];
@@ -112,12 +97,6 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
     };
 }
 
-- (BFTask *(^)(BFExecutor *, BFPErrorResultBlock))catchOn {
-    return ^BFTask *(BFExecutor *executor, BFPErrorResultBlock block) {
-        return [self catchWithExecutor:executor withBlock:block];
-    };
-}
-
 - (BFTask *(^)(BFExecutor *, BFPFinallyBlock))finallyOn {
     return ^BFTask *(BFExecutor *executor, BFPFinallyBlock block) {
         return [self finallyWithExecutor:executor withBlock:block];
@@ -133,12 +112,6 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
 - (BFTask *(^)(BFPSuccessResultBlock))thenOnMain {
     return ^BFTask *(BFPSuccessResultBlock block) {
         return [self thenWithExecutor:[BFExecutor mainThreadExecutor] withBlock:block];
-    };
-}
-
-- (BFTask *(^)(BFPErrorResultBlock))catchOnMain {
-    return ^BFTask *(BFPErrorResultBlock block) {
-        return [self catchWithExecutor:[BFExecutor mainThreadExecutor] withBlock:block];
     };
 }
 

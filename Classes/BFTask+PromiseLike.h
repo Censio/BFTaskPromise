@@ -37,25 +37,21 @@ typedef BFTask *(^BFPFinallyBlock)();
 
 @interface BFTask (PromiseLike)
 
-- (BFTask *)thenWithExecutor:(BFExecutor *)executor withBlock:(BFPSuccessResultBlock)block;
-- (BFTask *)catchWithExecutor:(BFExecutor *)executor withBlock:(BFPErrorResultBlock)block;
-- (BFTask *)finallyWithExecutor:(BFExecutor *)executor withBlock:(BFPFinallyBlock)block;
++ (NSError *)errorForException:(NSException *)exception;
 
+- (BFTask *)thenWithExecutor:(BFExecutor *)executor withBlock:(BFPSuccessResultBlock)block;
+- (BFTask *)finallyWithExecutor:(BFExecutor *)executor withBlock:(BFPFinallyBlock)block;
 
 - (BFTask *(^)(BFContinuationBlock))continueWith;
 - (BFTask *(^)(BFPSuccessResultBlock))then;
-- (BFTask *(^)(BFPErrorResultBlock))catch;
-- (BFTask *(^)(BFPErrorResultBlock))catchWith;  // for Objective-C++
 - (BFTask *(^)(BFPFinallyBlock))finally;
 
 - (BFTask *(^)(BFExecutor *, BFContinuationBlock))continueOn;
 - (BFTask *(^)(BFExecutor *, BFPSuccessResultBlock))thenOn;
-- (BFTask *(^)(BFExecutor *, BFPErrorResultBlock))catchOn;
 - (BFTask *(^)(BFExecutor *, BFPFinallyBlock))finallyOn;
 
 - (BFTask *(^)(BFContinuationBlock))continueOnMain;
 - (BFTask *(^)(BFPSuccessResultBlock))thenOnMain;
-- (BFTask *(^)(BFPErrorResultBlock))catchOnMain;
 - (BFTask *(^)(BFPFinallyBlock))finallyOnMain;
 
 @end
