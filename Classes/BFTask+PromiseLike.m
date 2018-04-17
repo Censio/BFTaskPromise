@@ -50,9 +50,9 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
             NSException *exception = (NSException *)task.result;
             
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setObject:task.exception forKey:BFPUnderlyingExceptionKey];
+            [dict setObject:exception forKey:BFPUnderlyingExceptionKey];
             
-            NSString *reason = task.exception.reason;
+            NSString *reason = exception.reason;
             if (reason != nil) {
                 [dict setObject:reason forKey:NSLocalizedDescriptionKey];
             }
