@@ -31,9 +31,22 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
 
 @implementation BFTask (PromiseLike)
 
++ (NSError *)errorFromException:(NSException *)exception
+{
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:exception forKey:BFPUnderlyingExceptionKey];
+    
+    NSString *reason = exception.reason;
+    if (reason != nil) {
+        [dict setObject:reason forKey:NSLocalizedDescriptionKey];
+    }
+    
+    return [NSError errorWithDomain:BFPTaskErrorDomain code:BFPTaskErrorException userInfo:dict];
+}
+
 - (BFTask *)thenWithExecutor:(BFExecutor *)executor withBlock:(BFPSuccessResultBlock)block {
     return [self continueWithExecutor:executor withBlock: ^id (BFTask *task) {
-        if ([task error] != nil || [task exception] != nil || [task isCancelled]) {
+        if ([task error] != nil || [task isCancelled]) {
             return task;
         } else {
             return block(task.result);
@@ -45,14 +58,6 @@ NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
     return [self continueWithExecutor:executor withBlock: ^id (BFTask *task) {
         if (task.error) {
             return block(task.error);
-        } else if (task.exception) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setObject:task.exception forKey:BFPUnderlyingExceptionKey];
-            NSString *reason = task.exception.reason;
-            if (reason != nil) {
-                [dict setObject:reason forKey:NSLocalizedDescriptionKey];
-            }
-            return block([NSError errorWithDomain:BFPTaskErrorDomain code:BFPTaskErrorException userInfo:dict]);
         } else {
             return task;
         }
