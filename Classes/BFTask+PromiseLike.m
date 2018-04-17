@@ -26,23 +26,7 @@
 #import <Bolts/BFExecutor.h>
 #import "BFTask+PromiseLike.h"
 
-NSString *const BFPTaskErrorDomain = @"BFPTaskErrorDomain";
-NSString *const BFPUnderlyingExceptionKey = @"BFPUnderlyingException";
-
 @implementation BFTask (PromiseLike)
-
-+ (NSError *)errorFromException:(NSException *)exception
-{
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setObject:exception forKey:BFPUnderlyingExceptionKey];
-    
-    NSString *reason = exception.reason;
-    if (reason != nil) {
-        [dict setObject:reason forKey:NSLocalizedDescriptionKey];
-    }
-    
-    return [NSError errorWithDomain:BFPTaskErrorDomain code:BFPTaskErrorException userInfo:dict];
-}
 
 - (BFTask *)thenWithExecutor:(BFExecutor *)executor withBlock:(BFPSuccessResultBlock)block {
     return [self continueWithExecutor:executor withBlock: ^id (BFTask *task) {

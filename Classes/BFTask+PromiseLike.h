@@ -37,9 +37,6 @@ typedef BFTask *(^BFPFinallyBlock)();
 
 @interface BFTask (PromiseLike)
 
-+ (NSError *)errorFromException:(NSException *)exception;
-
-
 - (BFTask *)thenWithExecutor:(BFExecutor *)executor withBlock:(BFPSuccessResultBlock)block;
 - (BFTask *)catchWithExecutor:(BFExecutor *)executor withBlock:(BFPErrorResultBlock)block;
 - (BFTask *)finallyWithExecutor:(BFExecutor *)executor withBlock:(BFPFinallyBlock)block;
