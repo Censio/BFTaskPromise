@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		86199B2E24410895009CE333 /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = 86199B2D24410895009CE333 /* Classes */; };
+		86D5CFB424410938003005C0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 86D5CFB324410938003005C0 /* Info.plist */; };
+		86D5CFB6244109A3003005C0 /* Classes in Resources */ = {isa = PBXBuildFile; fileRef = 86D5CFB5244109A3003005C0 /* Classes */; };
+		86D5CFBA244109C9003005C0 /* BFTask+PromiseLike.h in Sources */ = {isa = PBXBuildFile; fileRef = 86D5CFB8244109C9003005C0 /* BFTask+PromiseLike.h */; };
+		86D5CFBB244109C9003005C0 /* BFTask+PromiseLike.m in Sources */ = {isa = PBXBuildFile; fileRef = 86D5CFB9244109C9003005C0 /* BFTask+PromiseLike.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		86199B2224410884009CE333 /* BFTaskPromise.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BFTaskPromise.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		86199B2624410884009CE333 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		86199B2D24410895009CE333 /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Classes; path = ../Classes; sourceTree = "<group>"; };
+		86D5CFB324410938003005C0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		86D5CFB5244109A3003005C0 /* Classes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Classes; sourceTree = "<group>"; };
+		86D5CFB8244109C9003005C0 /* BFTask+PromiseLike.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BFTask+PromiseLike.h"; sourceTree = "<group>"; };
+		86D5CFB9244109C9003005C0 /* BFTask+PromiseLike.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "BFTask+PromiseLike.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,8 +35,10 @@
 		86199B1824410884009CE333 = {
 			isa = PBXGroup;
 			children = (
-				86199B2424410884009CE333 /* BFTaskPromise */,
-				86199B2D24410895009CE333 /* Classes */,
+				86D5CFB8244109C9003005C0 /* BFTask+PromiseLike.h */,
+				86D5CFB9244109C9003005C0 /* BFTask+PromiseLike.m */,
+				86D5CFB5244109A3003005C0 /* Classes */,
+				86D5CFB324410938003005C0 /* Info.plist */,
 				86199B2324410884009CE333 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -42,14 +49,6 @@
 				86199B2224410884009CE333 /* BFTaskPromise.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		86199B2424410884009CE333 /* BFTaskPromise */ = {
-			isa = PBXGroup;
-			children = (
-				86199B2624410884009CE333 /* Info.plist */,
-			);
-			path = BFTaskPromise;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,7 +119,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86199B2E24410895009CE333 /* Classes in Resources */,
+				86D5CFB424410938003005C0 /* Info.plist in Resources */,
+				86D5CFB6244109A3003005C0 /* Classes in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +131,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86D5CFBA244109C9003005C0 /* BFTask+PromiseLike.h in Sources */,
+				86D5CFBB244109C9003005C0 /* BFTask+PromiseLike.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +264,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BFTaskPromise/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -285,7 +287,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BFTaskPromise/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
